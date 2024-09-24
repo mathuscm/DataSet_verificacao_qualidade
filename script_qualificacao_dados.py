@@ -28,8 +28,11 @@ import numpy as np
 
 
 # 
-df = pd.read_csv('C:/Users/Nifrias/Desktop/Atletas-ricos.csv', sep = ',')
+df = pd.read_csv('caminho-do-seu-arquivo-aqui.csv', sep = ',')
 print(df)
+
+# coluna de ano pode ser uma string, não há necessidade de manipulação
+df['Year'] = df['Year'].astype(str)
 
 # filtro para contagem de nulos
 def valornulo(df):
@@ -39,36 +42,45 @@ def valornulo(df):
 def valor_unico(df):    
     valores_unicos = df.nunique()
 
+# contagem de colunas categóricas
+
+
+# descrição de valores de colunas numéricas 
+def descricao_dados(df):
+    df_descricao = df.describe()
+    print(df_descricao)
+
+# gráfico de distribuição de colunas categóricas
+
+
+# gráfico de distribuição de colunas numéricas
+    
+
+# chamando funções
+vunico = valor_unico(df)
+print(vunico)
+
+vnulo = valornulo(df['Previous Year Rank'])
+print(vnulo)
+
+vdescricao = descricao_dados(df)
+print(vdescricao)
+
 # considerar valores NaN como 0
 #df['Previous Year Rank'] = df['Previous Year Rank'].fillna(0).astype(int)
 #print(df)
 
+
+
+
 #print(df['Previous Year Rank']).nunique()
 
-consulta = df[(df['Current Rank'] == 0) | (df['earnings ($ million)'] == 0) | (df['Previous Year Rank'])]
-print(consulta)
-
-vu = valor_unico(df)
-print(vu)
-
-vn = valornulo(df['Previous Year Rank'])
-print(vn)
+#consulta = df[(df['Current Rank'] == 0) | (df['earnings ($ million)'] == 0) | (df['Previous Year Rank'])]
+#print(consulta)
 
 # tipagem das colunas
 #tipo_1 = df['earnings ($ million)'].dtype
 #print(tipo_1)
 
 #tipo_2 = df['Previous Year Rank'].dtype
-#print(tipo_2)
-
-# contagem de colunas categóricas
-
-
-# descrição de valores de colunas numéricas 
-df_descricao = df.describe()
-print(df_descricao)
-
-# gráfico de distribuição de colunas categóricas
-
-
-# gráfico de distribuição de colunas numéricas
+#print(tipo_2)    
