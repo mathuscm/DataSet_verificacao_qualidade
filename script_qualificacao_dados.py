@@ -21,55 +21,60 @@ gráficos de distribuição de colunas numéricas
 import pandas as pd 
 import numpy as np 
 
-#
-'''class ItegridadeDados:
-    def __init__(self, df):
-        df = self.df'''
-
-
 # 
-df = pd.read_csv('caminho-do-seu-arquivo-aqui.csv', sep = ',')
-print(df)
+
 
 # coluna de ano pode ser uma string, não há necessidade de manipulação
-df['Year'] = df['Year'].astype(str)
+#df['Year'] = df['Year'].astype(str)
+
+#
+class IntegridadeDados:
+    def __init__(self, data):
+        self.df = data
 
 # filtro para contagem de nulos
-def valornulo(df):
-    contar_nulos = df.isnull().sum()
+    def valornulo(self):
+        contar_nulos = self.df.isnull().sum()
+        print(contar_nulos)
 
-# contagem de valores unicos
-def valor_unico(df):    
-    valores_unicos = df.nunique()
+    # contagem de valores unicos
+    def valor_unico(self):    
+        valores_unicos = self.df.nunique()
+        print(valores_unicos)
 
-# contagem de colunas categóricas
+    # contagem de colunas categóricas
 
 
-# descrição de valores de colunas numéricas 
-def descricao_dados(df):
-    df_descricao = df.describe()
-    print(df_descricao)
+    # descrição de valores de colunas numéricas 
+    def descricao_dados(self):
+        df_descricao = self.df.describe()
+        print(df_descricao)
+
+    # função de análise geral
+    def analise_geral(self):
+        print("\nVALORES NULOS POR COLUNA\n")
+        self.valornulo()
+        print("\nVALORES ÚNICOS POR COLUNA\n")
+        self.valor_unico()
+        print('\nDESCRIÇÃO DOS DADOS - MIN, MAX, MEDIA, MODA E QUARTIS\n')
+        self.descricao_dados()
 
 # gráfico de distribuição de colunas categóricas
 
 
 # gráfico de distribuição de colunas numéricas
-    
+
+df = pd.read_csv('C:/Users/Nifrias/Desktop/Atletas-ricos.csv', sep = ',')
+print(df)   
 
 # chamando funções
-vunico = valor_unico(df)
-print(vunico)
-
-vnulo = valornulo(df['Previous Year Rank'])
-print(vnulo)
-
-vdescricao = descricao_dados(df)
-print(vdescricao)
+resumo_dados = IntegridadeDados(df)
+resumo_dados.analise_geral()
+#print(resumo_dados)
 
 # considerar valores NaN como 0
 #df['Previous Year Rank'] = df['Previous Year Rank'].fillna(0).astype(int)
 #print(df)
-
 
 
 
