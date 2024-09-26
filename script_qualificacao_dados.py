@@ -64,7 +64,7 @@ class IntegridadeDados:
 
 # gráfico de distribuição de colunas numéricas
 
-df = pd.read_csv('C:/Users/Nifrias/Desktop/Atletas-ricos.csv', sep = ',')
+df = pd.read_csv('seu-data-set-aqui.csv', sep = ',')
 print(df)   
 
 # chamando funções
