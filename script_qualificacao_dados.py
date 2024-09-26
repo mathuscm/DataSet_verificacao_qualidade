@@ -43,11 +43,14 @@ class IntegridadeDados:
         print(valores_unicos)
 
     # contagem de colunas categóricas
+    def nao_numericos(self):
+        categorico = self.df.select_dtypes(include = 'object').describe()
+        print(categorico)
 
 
     # descrição de valores de colunas numéricas 
     def descricao_dados(self):
-        df_descricao = self.df.describe()
+        df_descricao = self.df.select_dtypes(include = np.number).describe().round(2)
         print(df_descricao)
 
     # função de análise geral
@@ -56,7 +59,9 @@ class IntegridadeDados:
         self.valornulo()
         print("\nVALORES ÚNICOS POR COLUNA\n")
         self.valor_unico()
-        print('\nDESCRIÇÃO DOS DADOS - MIN, MAX, MEDIA, MODA E QUARTIS\n')
+        print('\nDESCRIÇÃO DOS DADOS NÃO NUMÉRICOS\n')
+        self.nao_numericos()
+        print('\nDESCRIÇÃO DOS DADOS NUMÉRICOS - MIN, MAX, MEDIA, MODA E QUARTIS\n')
         self.descricao_dados()
 
 # gráfico de distribuição de colunas categóricas
@@ -64,7 +69,7 @@ class IntegridadeDados:
 
 # gráfico de distribuição de colunas numéricas
 
-df = pd.read_csv('seu-data-set-aqui.csv', sep = ',')
+df = pd.read_csv('Atletas-ricos.csv', sep = ',')
 print(df)   
 
 # chamando funções
