@@ -20,6 +20,8 @@ gráficos de distribuição de colunas numéricas
 #
 import pandas as pd 
 import numpy as np 
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # 
 
@@ -35,23 +37,23 @@ class IntegridadeDados:
 # filtro para contagem de nulos
     def valornulo(self):
         contar_nulos = self.df.isnull().sum()
-        print(contar_nulos)
+        return contar_nulos
 
     # contagem de valores unicos
     def valor_unico(self):    
         valores_unicos = self.df.nunique()
-        print(valores_unicos)
+        return valores_unicos
 
     # contagem de colunas categóricas
     def nao_numericos(self):
         categorico = self.df.select_dtypes(include = 'object').describe()
-        print(categorico)
+        return categorico
 
 
     # descrição de valores de colunas numéricas 
     def descricao_dados(self):
         df_descricao = self.df.select_dtypes(include = np.number).describe().round(2)
-        print(df_descricao)
+        return df_descricao
 
     # função de análise geral
     def analise_geral(self):
@@ -64,33 +66,70 @@ class IntegridadeDados:
         print('\nDESCRIÇÃO DOS DADOS NUMÉRICOS - MIN, MAX, MEDIA, MODA E QUARTIS\n')
         self.descricao_dados()
 
-# gráfico de distribuição de colunas categóricas
+# gráfico de distribuição de colunas categóricas x numérica
+    def categorica_x_numerica(self):
+     
+        column_numeros = self.df.select_dtypes(include=[np.number]).columns
+        column_categorias = self.df.select_dtypes(include=['object']).columns
+
+        classificadata = pd.DataFrame({
+            'Tipo de Coluna': ['Numéricas', 'Categóricas'],
+            'Colunas': [', '.join(column_numeros), ', '.join(column_categorias)]
+        })
+
+        print("Distribuição de Colunas Numéricas e Categóricas:")
+        print(classificadata)
 
 
-# gráfico de distribuição de colunas numéricas
+# gráfico de distribuição de colunas numéricas x colunas categóricas 
+    def distribuicao_dados(self):
 
-df = pd.read_csv('Atletas-ricos.csv', sep = ',')
+        numericos = len(self.df.select_dtypes(include=np.number).columns)
+        categoricos = len(self.df.select_dtypes(include = "object").columns)
+
+        labels = ['Numéricas', 'Não Numéricas']
+        sizes = [numericos, categoricos]  
+
+        def sem_porcentagem(val):
+          a = int(np.round(val / 100 * sum(sizes)))  # Converte porcentagem para valor absoluto
+          return f'{a} colunas'
+
+        plt.figure(figsize=(6,6))
+        plt.pie(sizes, labels=labels, autopct=sem_porcentagem, startangle=90, colors=['skyblue', 'grey'], wedgeprops=dict(width=0.6))
+        plt.title('Quantidade de colunas por tipo')
+        plt.axis('equal')  
+        plt.show()
+
+
+# gráfico de nulos
+    def nulos(self):
+       
+        nulls = self.valornulo()
+        nulls = nulls[nulls > 0]
+        if nulls.empty:
+            print("Não existem colunas com valores nulos")
+            return
+        
+        plt.figure(figsize=(10,6))
+        sns.barplot(x = nulls.index, y = nulls.values, width=0.1)
+        plt.title("Valores nulos por coluna")
+        plt.ylabel("Nº de valores nulos")
+        plt.xlabel("Colunas")
+        plt.xticks(rotation=45)
+        plt.show()
+
+df = pd.read_csv('Analise-supermercado.csv', sep = ',')
 print(df)   
 
 # chamando funções
 resumo_dados = IntegridadeDados(df)
 resumo_dados.analise_geral()
-#print(resumo_dados)
-
-# considerar valores NaN como 0
-#df['Previous Year Rank'] = df['Previous Year Rank'].fillna(0).astype(int)
-#print(df)
 
 
-
-#print(df['Previous Year Rank']).nunique()
-
-#consulta = df[(df['Current Rank'] == 0) | (df['earnings ($ million)'] == 0) | (df['Previous Year Rank'])]
-#print(consulta)
-
-# tipagem das colunas
-#tipo_1 = df['earnings ($ million)'].dtype
-#print(tipo_1)
-
-#tipo_2 = df['Previous Year Rank'].dtype
-#print(tipo_2)    
+graf_dados = IntegridadeDados(df)
+print('\n')
+graf_dados.categorica_x_numerica()
+print('\n')
+graf_dados.nulos()
+print('\n')
+graf_dados.distribuicao_dados()
