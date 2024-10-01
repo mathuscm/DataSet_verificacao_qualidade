@@ -20,10 +20,10 @@ Este repositório contém dois aqruivos .csv para teste do código, mas pode ser
 
 1. clone ou baixe o repositório,
 2. os arquivos script_qualificacao_dados.py e modulos.ipynb devem estar no mesmo local/pasta, assim como o arquivo .csv que será lido pelo programa,
-3. o arquivo de execução será o modulos.ipynb, 
-4. caso deseje realizar a leitura de outro .csv que não seja os dado como exemplo, cole ele na mesma pasta em que os arquivos da instrução 2,
-5. após selecionar e armazenar o arquivo na pasta, você pode alterar o caminho dele na seguinte linha do arquivo modulos.ipynb: df = pd.read_csv('caminho-do-seu-arquivo-aqui.csv', sep = ','),
-6. execute o programa
+3. caso deseje realizar a leitura de outro .csv que não seja os dado como exemplo, cole ele na mesma pasta em que os arquivos da instrução 2,
+4. após selecionar e armazenar o arquivo na pasta, você pode alterar o caminho dele na seguinte linha do arquivo modulos.ipynb: df = pd.read_csv('caminho-do-seu-arquivo-aqui.csv', sep = ','),
+5. execute o arquivo script_qualificacao_dados.py,
+6. depois, execute o arquivo modulos.ipynb, pois ele irá gerar a saída
 
 ## Bibliotecas necessárias
 
