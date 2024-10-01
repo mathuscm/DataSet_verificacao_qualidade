@@ -118,18 +118,4 @@ class IntegridadeDados:
         plt.xticks(rotation=45)
         plt.show()
 
-df = pd.read_csv('Analise-supermercado.csv', sep = ',')
-print(df)   
 
-# chamando funções
-resumo_dados = IntegridadeDados(df)
-resumo_dados.analise_geral()
-
-
-graf_dados = IntegridadeDados(df)
-print('\n')
-graf_dados.categorica_x_numerica()
-print('\n')
-graf_dados.nulos()
-print('\n')
-graf_dados.distribuicao_dados()
